@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Token</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+        .token-box{
+            width:400px;
+            margin:50px auto;
+            border:2px solid #333;
+            padding:25px;
+            text-align:center;
+            border-radius:10px;
+            background:white;
+        }
+
+        .token-box h1{
+            color:#0077cc;
+        }
+
+        .print-btn{
+            margin-top:20px;
+            padding:10px 20px;
+            background:#28a745;
+            color:white;
+            border:none;
+            border-radius:5px;
+            cursor:pointer;
+        }
+
+        .print-btn:hover{
+            background:#218838;
+        }
+
+       
+        @media print{
+
+            body{
+             background:white;
+             }
+
+             .print-btn{
+                  display:none;
+                }
+
+             .token-box{
+              border:2px solid black;
+              width:100%;
+              margin:0;
+             }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="token-box">
+
+    <h1>🏥 Hospital Queue</h1>
+
+    <hr>
+
+    <h2>Patient Token</h2>
+
+    <p><strong>Token:</strong> {{ token }}</p>
+
+    <p><strong>Name:</strong> {{ name }}</p>
+
+    <p><strong>Department:</strong> {{ department }}</p>
+
+    <p><strong>Date & Time:</strong> {{ date_time }}</p>
+
+    <hr>
+
+    <p>Please wait until your token is called.</p>
+
+    <button class="print-btn" onclick="window.print()">
+        🖨 Print / save as pdf
+    </button>
+    <p style="font-size:14px; color:gray;"> <!--basically it work for mobile download -->
+      On mobile, tap <b>Print</b> and choose <b>Save as PDF</b>.
+    </p>
+
+    <br><br>
+
+<a href="/queue">
+    <button class="print-btn" style="background:#007bff;">
+        View Queue
+    </button>
+</a>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Admin Dashboard</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<nav>
+
+<div class="logo">
+🏥 Hospital Queue
+</div>
+
+<ul>
+
+<li><a href="/">Home</a></li>
+
+<li><a href="/register">Register</a></li>
+
+<li><a href="/queue">Queue</a></li>
+
+<li><a href="/doctor">Doctor</a></li>
+
+<li><a href="/admin">Admin</a></li>
+
+<!--<li><a href="/login">Login</a></li> -->
+<li><a href="/logout">Logout</a></li>
+
+</ul>
+
+</nav>
+
+<section class="admin-container">
+
+<h1>Admin Dashboard</h1>
+
+<!--<div class="dashboard-cards">
+
+<div class="dashboard-card">
+<h2>Total Patients</h2>
+<h1>120</h1>
+</div>
+
+<div class="dashboard-card">
+<h2>Total Doctors</h2>
+<h1>15</h1>
+</div>
+
+<div class="dashboard-card">
+<h2>Departments</h2>
+<h1>8</h1>
+</div>
+
+</div>-->
+
+<div class="dashboard-card">
+    <h2>Total Patients</h2>
+    <h1>{{ total }}</h1>
+</div>
+
+<div class="dashboard-card">
+    <h2>Waiting</h2>
+    <h1>{{ waiting }}</h1>
+</div>
+
+<div class="dashboard-card">
+    <h2>In Progress</h2>
+    <h1>{{ progress }}</h1>
+</div>
+
+<div class="dashboard-card">
+    <h2>Completed</h2>
+    <h1>{{ completed }}</h1>
+</div>
+
+<h2>Patient Records</h2>
+
+<form action="/admin" method="GET">
+
+    <input
+        type="text"
+        name="search"
+        placeholder="Search by Token, Name or Phone"
+    >
+
+    <button type="submit">
+        Search
+    </button>
+
+</form>
+
+<br>
+
+<!--<table>
+
+<tr>
+
+<th>Token</th>
+<th>Name</th>
+<th>Department</th>
+<th>Status</th>
+<th>Action</th>
+
+</tr>
+
+<tr>
+
+<td>A101</td>
+<td>Ram Sharma</td>
+<td>General</td>
+<td>Completed</td>
+
+<td>
+
+<button class="delete-btn">
+Delete
+</button>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>A102</td>
+<td>Sita Rai</td>
+<td>Dental</td>
+<td>Waiting</td>
+
+<td>
+
+<button class="delete-btn">
+Delete
+</button>
+
+</td>
+<tr>
+
+<td>A103</td>
+<td>Bimal Bk</td>
+<td>General</td>
+<td>Completed</td>
+
+<td>
+
+<button class="delete-btn">
+Delete
+</button>
+
+</td>
+
+
+</tr>
+
+</table> -->
+
+<h1>Admin Dashboard</h1>
+
+<table>
+
+<tr>
+    <th>Token</th>
+    <th>Name</th>
+    <th>Age</th>
+    <th>phone</th>
+    <th>Department</th>
+    <th>symptoms</th>
+    <th>Status</th>
+    <th>date_time</th>
+    <th>Action</th>
+</tr>
+
+{% for patient in patients %}
+
+<tr>
+
+    <td>{{ patient[1] }}</td>
+    <td>{{ patient[2] }}</td>
+    <td>{{ patient[3] }}</td>
+    <td>{{ patient[4] }}</td>
+    <td>{{ patient[5] }}</td>
+    <td>{{ patient[6] }}</td>
+    <!--<td>{{ patient[7] }}</td> -->
+    <td>
+      {% if patient[7] == "Waiting" %}
+        <span class="status waiting">Waiting</span>
+
+      {% elif patient[7] == "In Progress" %}
+        <span class="status progress">In Progress</span>
+
+      {% elif patient[7] == "Completed" %}
+        <span class="status completed">Completed</span>
+
+      {% endif %}
+   </td>
+    <td>{{ patient[8] }}</td>
+
+    <td>
+        <a href="/delete/{{ patient[0] }}"
+            onclick="return confirm('Are you sure you want to delete this patient?')"><!--for delete conformation-->
+            <button>Delete</button>
+        </a>
+    </td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+<div class="admin-buttons">
+
+<button id="addDoctor">
+
+Add Doctor
+
+</button>
+
+<!--<button id="resetQueue">
+
+Reset Queue
+
+</button> -->
+<a href="/reset"
+    onclick="return confirm('Are you sure you want to reset the entire queue?')"> <!--for reset conformation-->
+    <button id="resetQueue">Reset Queue</button>
+</a>
+
+<a href="/export">
+    <button class="export-btn">📥 Export to Excel</button>
+</a>
+
+</div>
+
+</section>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+
+</html>

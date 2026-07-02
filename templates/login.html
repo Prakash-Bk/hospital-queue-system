@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Hospital Login</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<nav>
+
+<div class="logo">
+🏥 Hospital Queue
+</div>
+
+<ul>
+
+<li><a href="/">Home</a></li>
+<li><a href="/register">Register</a></li>
+<li><a href="/queue">Queue</a></li>
+<li><a href="/doctor">Doctor</a></li>
+<li><a href="/admin">Admin</a></li>
+<li><a href="/login">Login</a></li>
+
+</ul>
+
+</nav>
+
+<section class="login-container">
+
+<div class="login-box">
+
+<h1>Login</h1>
+
+<!--<form id="loginForm">
+
+<label>Username</label>
+
+<input
+type="text"
+id="username"
+placeholder="Enter Username"
+required>
+
+<label>Password</label>
+
+<input
+type="password"
+id="password"
+placeholder="Enter Password"
+required>
+
+<label>Login As</label>
+
+<select id="role">
+
+<option>Admin</option>
+<option>Doctor</option>
+
+</select>
+
+<button type="submit">
+
+Login
+
+</button>
+
+</form> -->
+<form action="/login" method="POST">
+
+    <label>Username</label>
+    <input
+        type="text"
+        name="username"
+        placeholder="Enter Username"
+        required
+    >
+
+    <label>Password</label>
+    <input
+        type="password"
+        name="password"
+        placeholder="Enter Password"
+        required
+    >
+
+    <button type="submit">
+        Login
+    </button>
+
+</form>
+
+</div>
+
+</section>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Queue</title>
+
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<nav>
+
+<div class="logo">
+🏥 Hospital Queue
+</div>
+
+<ul>
+
+<li><a href="/">Home</a></li>
+
+<li><a href="/register">Register</a></li>
+
+<li><a href="/queue">Queue</a></li>
+
+<li><a href="/doctor">Doctor</a></li>
+
+<li><a href="/admin">Admin</a></li>
+
+<li><a href="/login">Login</a></li>
+
+</ul>
+
+</nav>
+
+<section class="queue-container">
+
+<h1>Live Queue Status</h1>
+
+<div class="current-token">
+
+<h2>Current Token</h2>
+
+<h1>A101</h1>
+
+</div>
+
+<div class="waiting">
+
+<h2>Waiting Patients</h2>
+
+<!-- <table>
+
+<tr>
+<th>Token</th>
+<th>Status</th>
+</tr>
+
+<tr>
+<td>A102</td>
+<td>Waiting</td>
+</tr>
+
+<tr>
+<td>A103</td>
+<td>Waiting</td>
+</tr>
+
+<tr>
+<td>A104</td>
+<td>Waiting</td>
+</tr>
+
+<tr>
+<td>A105</td>
+<td>Waiting</td>
+</tr>
+
+</table> -->
+<table>
+
+<tr>
+    <th>Token</th>
+    <th>Name</th>
+    <th>Age</th>
+    <th>Department</th>
+    <th>Status</th>
+</tr>
+
+{% for patient in patients %}
+
+<tr>
+    <td>{{ patient[0] }}</td>
+    <td>{{ patient[1] }}</td>
+    <td>{{ patient[2] }}</td>
+    <td>{{ patient[3] }}</td>
+    <td>{{ patient[4] }}</td>
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+<div class="estimate">
+
+<h2>Estimated Waiting Time</h2>
+
+<p>Approximately <strong>40 Minutes</strong></p>
+
+</div>
+
+</section>
+
+<script
+src="{{ url_for('static', filename='js/script.js') }}">
+</script>
+
+</body>
+</html>
