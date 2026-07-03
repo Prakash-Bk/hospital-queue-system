@@ -93,7 +93,7 @@ href="{{ url_for('static', filename='css/style.css') }}">
 
     <input
         type="text"
-        name="search"
+        id="searchInput"
         placeholder="Search by Token, Name or Phone"
     >
 
@@ -200,6 +200,8 @@ Delete
     <th>Action</th>
 </tr>
 
+<tbody id="patientTable">
+
 {% for patient in patients %}
 
 <tr>
@@ -302,6 +304,54 @@ new Chart(ctx, {
     }
 });
 </script>
+
+<script>
+document.getElementById("searchInput").addEventListener("keyup", function () {
+
+    let search = this.value;
+
+    fetch("/search_patients?search=" + encodeURIComponent(search))
+        .then(response => response.json())
+        .then(data => {
+
+            let table = document.getElementById("patientTable");
+            table.innerHTML = "";
+
+            data.forEach(patient => {
+
+                let statusClass = "";
+
+                if (patient[7] === "Waiting")
+                    statusClass = "waiting";
+                else if (patient[7] === "In Progress")
+                    statusClass = "progress";
+                else
+                    statusClass = "completed";
+
+                table.innerHTML += `
+                    <tr>
+                        <td>${patient[1]}</td>
+                        <td>${patient[2]}</td>
+                        <td>${patient[3]}</td>
+                        <td>${patient[4]}</td>
+                        <td>${patient[5]}</td>
+                        <td>${patient[6]}</td>
+                        <td><span class="status ${statusClass}">${patient[7]}</span></td>
+                        <td>${patient[8]}</td>
+                        <td>
+                            <a href="/delete/${patient[0]}" onclick="return confirm('Are you sure you want to delete this patient?')">
+                                <button>Delete</button>
+                            </a>
+                        </td>
+                    </tr>
+                `;
+            });
+
+        });
+
+});
+</script>
+
 </body>
 
 </html>

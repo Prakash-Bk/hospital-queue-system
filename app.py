@@ -32,7 +32,7 @@
 
 
 # from flask import Flask, render_template
-from flask import Flask, render_template, request, redirect, session,Response
+from flask import Flask, render_template, request, redirect, session,Response,jsonify
 import sqlite3
 import csv #for excel sheet to export all data
 from datetime import datetime#for data time 
@@ -278,7 +278,7 @@ def admin():
     if search:
 
      cursor.execute("""
-        SELECT id, token, name, age,  department, status,date_time
+        SELECT id, token, name, age, phone, department, symptoms status,date_time
         FROM patients
         WHERE token LIKE ?
         OR name LIKE ?
@@ -328,7 +328,38 @@ def admin():
         progress=progress,
         completed=completed
     )
-    
+
+@app.route("/search_patients")
+def search_patients():
+
+    if session.get("user") != "admin":
+        return jsonify([])
+
+    search = request.args.get("search", "")
+
+    conn = sqlite3.connect("database.db")
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT id, token, name, age, phone, department,
+               symptoms, status, date_time
+        FROM patients
+        WHERE token LIKE ?
+           OR name LIKE ?
+           OR phone LIKE ?
+        ORDER BY id
+    """, (
+        "%" + search + "%",
+        "%" + search + "%",
+        "%" + search + "%"
+    ))
+
+    patients = cursor.fetchall()
+    conn.close()
+
+    return jsonify(patients)
+
+
 @app.route("/delete/<int:id>")
 def delete_patient(id):
 
