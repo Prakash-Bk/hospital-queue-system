@@ -103,6 +103,22 @@ href="{{ url_for('static', filename='css/style.css') }}">
 
 </form>
 
+<form method="GET" action="/admin">
+    <label><strong>Filter by Department:</strong></label>
+
+    <select name="department">
+        <option value="">All Departments</option>
+        <option value="General">General</option>
+        <option value="Dental">Dental</option>
+        <option value="Cardiology">Cardiology</option>
+        <option value="Orthopedic">Orthopedic</option>
+    </select>
+
+    <button type="submit">Filter</button>
+</form>
+
+<br>
+
 <br>
 
 <!--<table>
