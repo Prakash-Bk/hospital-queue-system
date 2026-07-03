@@ -405,13 +405,13 @@ def login():
 
         # elif username == "doctor" and password == "doctor123":
         #     return redirect("/doctor")
-        if username == "admin" and password == "admin123":
+        if username == "admin" and password == "Admin@2026!":
 
               session["user"] = "admin"
 
               return redirect("/admin")
 
-        elif username == "doctor" and password == "doctor123":
+        elif username == "doctor" and password == "Doctor@2026!":
 
               session["user"] = "doctor"
 
